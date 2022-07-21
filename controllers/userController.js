@@ -60,13 +60,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
-
 exports.getUser = (req, res) => {
   res.status(500).json({
     status: 'error',
@@ -74,12 +67,10 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+exports.createUser = factory.createOne(User);
+
+// Only administrator to use updateUser
+exports.updateUser = factory.updateOne(User);
 
 // Only administrator to use deleteUser
 exports.deleteUser = factory.deleteOne(User);
