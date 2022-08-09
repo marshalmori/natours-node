@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 
+const cookieParser = require('cookie-parser');
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
@@ -31,10 +33,13 @@ if (process.env.NODE_ENV === 'development') {
 // });
 // app.use('/api', limiter);
 
+app.use(cookieParser());
+
 app.use(express.json());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  console.log(req.cookies);
   next();
 });
 
