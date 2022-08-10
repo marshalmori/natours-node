@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const xss = require('xss-clean');
 
 const cookieParser = require('cookie-parser');
 
@@ -36,6 +37,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cookieParser());
 
 app.use(express.json());
+
+// Data sanitization against XSS
+app.use(xss());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
